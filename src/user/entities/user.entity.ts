@@ -1,6 +1,7 @@
 import { CommonEntity } from "src/common/entities/base-entity";
 import { Column, Entity } from "typeorm";
 import { RoleUser } from "../enum/role-user.enum";
+import { Exclude } from "class-transformer";
 
 @Entity({ name: 'user' })
 export class User extends CommonEntity {
@@ -13,6 +14,7 @@ export class User extends CommonEntity {
     @Column()
     email: string;
 
+    @Exclude()
     @Column()
     password: string;
 }

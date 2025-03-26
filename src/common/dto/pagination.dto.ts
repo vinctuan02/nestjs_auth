@@ -1,35 +1,32 @@
 import { Expose } from 'class-transformer';
 
 export class DataPagination<T> {
-    @Expose()
     items?: T[];
 
-    @Expose()
     metadata: MetadataDto;
 
-    constructor(items: T[], metadata: MetadataDto) {
+    constructor(items: T[], page: number, pageSize: number) {
         this.items = items;
-        this.metadata = metadata;
+        this.metadata = new MetadataDto(page, pageSize, items.length)
     }
 }
 
 
-export class MetadataDto {
-    currentPage: number;
+class MetadataDto {
+    page: number;
     pageSize: number;
     totalItems: number;
     totalPages: number;
 
     constructor(
-        currentPage: number,
+        page: number,
         pageSize: number,
         totalItems: number,
-        totalPages: number,
     ) {
-        this.currentPage = currentPage;
+        this.page = page;
         this.pageSize = pageSize;
         this.totalItems = totalItems;
-        this.totalPages = totalPages;
+        this.totalPages = Math.ceil(totalItems / pageSize);
     }
 }
 

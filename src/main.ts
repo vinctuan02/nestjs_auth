@@ -7,10 +7,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe(
     {
+      transform: true, // request body thành instance
       whitelist: true, // Loại bỏ các trường không được định nghĩa trong DTO
       forbidNonWhitelisted: false, // ko bao loi cac truong thua
     }
   ));
+
 
   await app.listen(process.env.PORT ?? 3000);
 }
